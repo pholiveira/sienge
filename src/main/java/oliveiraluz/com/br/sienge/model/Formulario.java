@@ -7,15 +7,15 @@ public class Formulario {
 
 	private Integer rodoviaPavimentada;
 	private Integer rodoviaNaoPavimentada;
-	private Integer cargaTransportada;
+	private Integer carga;
 	private TipoVeiculo tipoVeiculo;
 
 	private BigDecimal totalDistancia;
-	private BigDecimal totalComplementar;
+	private BigDecimal totalAdicional;
 
 	public Formulario() {
 		this.totalDistancia = new BigDecimal(0);
-		this.totalComplementar = new BigDecimal(0);
+		this.totalAdicional = new BigDecimal(0);
 	}
 
 	public Integer getRodoviaPavimentada() {
@@ -34,12 +34,12 @@ public class Formulario {
 		this.rodoviaNaoPavimentada = rodoviaNaoPavimentada;
 	}
 
-	public Integer getCargaTransportada() {
-		return cargaTransportada;
+	public Integer getCarga() {
+		return carga;
 	}
 
-	public void setCargaTransportada(Integer cargaTransportada) {
-		this.cargaTransportada = cargaTransportada;
+	public void setCarga(Integer carga) {
+		this.carga = carga;
 	}
 
 	public TipoVeiculo getTipoVeiculo() {
@@ -62,19 +62,19 @@ public class Formulario {
 		}
 	}
 
-	public BigDecimal getTotalComplementar() {
-		return totalComplementar.setScale(2, RoundingMode.HALF_UP);
+	public BigDecimal getTotalAdicional() {
+		return totalAdicional.setScale(2, RoundingMode.HALF_UP);
 	}
 
-	public void setTotalComplementar(BigDecimal totalComplementar) {
+	public void setTotalAdicional(BigDecimal totalComplementar) {
 		if (totalComplementar != null) {
-			this.totalComplementar = totalComplementar;
+			this.totalAdicional = totalComplementar;
 		} else {
-			this.totalComplementar = new BigDecimal(0);
+			this.totalAdicional = new BigDecimal(0);
 		}
 	}
 
 	public BigDecimal getTotal() {
-		return totalDistancia.add(totalComplementar).setScale(2, RoundingMode.HALF_UP);
+		return totalDistancia.add(totalAdicional).setScale(2, RoundingMode.HALF_UP);
 	}
 }

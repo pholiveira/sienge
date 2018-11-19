@@ -28,7 +28,7 @@
 									<h6 class="my-0">Adicionais</h6>
 									<small class="text-muted">Custos complementares</small>
 								</div> 
-								<span class="text-muted" th:text="'R$' + *{totalComplementar}"></span>
+								<span class="text-muted" th:text="'R$' + *{totalAdicional}"></span>
 							</li>
 							<li class="list-group-item d-flex justify-content-between">
 								<span>Total</span>
@@ -58,7 +58,7 @@
 								</div>
 								<div class="col-md-6 mb-3">
 									<label for="carga">Carga transportada</label> 
-									<input type="number" class="form-control" id="carga" th:field="*{cargaTransportada}">
+									<input type="number" class="form-control" id="carga" th:field="*{carga}">
 								</div>
 							</div>
 							<button class="btn btn-primary btn-lg btn-block" type="submit">Calcular</button>

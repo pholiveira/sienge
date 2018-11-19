@@ -33,7 +33,7 @@ public class HomeController {
 	private ModelAndView buildView(Formulario formulario) {
 		ModelAndView view = new ModelAndView("home");
 		view.addObject("formulario", formulario);
-		view.addObject("tiposVeiculo", tipoVeiculoService.findAll());
+		view.addObject("tiposVeiculo", this.tipoVeiculoService.findAll());
 		return view;
 	}
 }
