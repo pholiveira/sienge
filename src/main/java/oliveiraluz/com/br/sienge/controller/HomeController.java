@@ -3,6 +3,7 @@ package oliveiraluz.com.br.sienge.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,10 +28,8 @@ public class HomeController {
 
 	@PostMapping
 	public ModelAndView calcular(Formulario formulario, BindingResult bindingResult) {
-		if (bindingResult.hasErrors())
-			return buildView(formulario, "Número no formato inválido! Favor inserir apenas números inteiros.");
 		this.homeService.calcularFormulario(formulario);
-		return buildView(formulario, null);
+		return buildView(formulario, bindingResult);
 	}
 
 	/**
@@ -40,12 +39,26 @@ public class HomeController {
 	 * @param msgError
 	 * @return
 	 */
-	private ModelAndView buildView(Formulario formulario, String msgError) {
+	private ModelAndView buildView(Formulario formulario, BindingResult bindingResult) {
 		ModelAndView view = new ModelAndView("home");
-		if (msgError != null)
-			view.addObject("msgError", msgError);
+		if (bindingResult != null && bindingResult.hasErrors())
+			view.addObject("msgError", tratarMsgError(bindingResult.getFieldError()));
 		view.addObject("formulario", formulario);
 		view.addObject("tiposVeiculo", this.tipoVeiculoService.findAll());
 		return view;
+	}
+	
+	/**
+	 * Retorna mensagem de acordo com tipo de erro recebido.
+	 * 
+	 * @return
+	 */
+	private String tratarMsgError(FieldError error) {
+		String msgErro = "Ocorreu um erro durante o processamento, favor tentar novamente.";
+		
+		if (error.contains(NumberFormatException.class))
+			msgErro = "Número no formato inválido! Favor inserir apenas números inteiros.";
+		
+		return msgErro;
 	}
 }

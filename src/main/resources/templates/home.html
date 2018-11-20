@@ -43,11 +43,11 @@
 							<div class="row">
 								<div class="col-md-6 mb-3">
 									<label for="pavi">Distância em rodovia pavimentada (em quilômetros.)</label> 
-									<input type="number" class="form-control" id="pavi" th:max="999999999" th:field="*{rodoviaPavimentada}">
+									<input type="number" class="form-control" id="pavi" th:max="999999999" th:min="0" th:field="*{rodoviaPavimentada}">
 								</div>
 								<div class="col-md-6 mb-3">
 									<label for="nao-pavi">Distância em rodovia não-pavimentada (em quilômetros.)</label> 
-									<input type="number" class="form-control" id="nao-pavi" th:max="999999999" th:field="*{rodoviaNaoPavimentada}">
+									<input type="number" class="form-control" id="nao-pavi" th:max="999999999" th:min="0" th:field="*{rodoviaNaoPavimentada}">
 								</div>
 							</div>
 							<div class="row">
@@ -60,7 +60,7 @@
 								</div>
 								<div class="col-md-6 mb-3">
 									<label for="carga">Carga transportada</label> 
-									<input type="number" class="form-control" id="carga" th:max="999999999" th:field="*{carga}">
+									<input type="number" class="form-control" id="carga" th:max="999999999" th:min="0" th:field="*{carga}">
 								</div>
 							</div>
 							<button class="btn btn-primary btn-lg btn-block" type="submit">Calcular</button>
