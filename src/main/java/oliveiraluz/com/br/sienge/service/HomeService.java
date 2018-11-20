@@ -23,6 +23,11 @@ public class HomeService {
 	@Value("${parametro.toneladaExcedente}")
 	private BigDecimal toneladaExcedente;
 	
+	/**
+	 * Executa toda regra de negócio referente ao cálculo do transporte.
+	 * 
+	 * @param formulario
+	 */
 	public void calcularFormulario(Formulario formulario) {
 		BigDecimal valorDistancia = calculaDistancia(formulario.getRodoviaPavimentada(), formulario.getRodoviaNaoPavimentada());
 		
@@ -39,6 +44,13 @@ public class HomeService {
 		formulario.setTotalAdicional(valorAdicional);
 	}
 
+	/**
+	 * Contém regras especificas para calculos referente a distância.
+	 * 
+	 * @param rodoviaPavimentada
+	 * @param rodoviaNaoPavimentada
+	 * @return
+	 */
 	private BigDecimal calculaDistancia(Integer rodoviaPavimentada, Integer rodoviaNaoPavimentada) {
 		BigDecimal valorTotal = new BigDecimal(0);
 
@@ -52,6 +64,15 @@ public class HomeService {
 		return valorTotal;
 	}
 
+	/**
+	 * Contém regras especificas para calculos de adicionais.
+	 * 
+	 * @param tipoVeiculo
+	 * @param valorTotalRodovia
+	 * @param kmRodado
+	 * @param carga
+	 * @return
+	 */
 	private BigDecimal calculaAdicional(TipoVeiculo tipoVeiculo, BigDecimal valorTotalRodovia, Integer kmRodado, Integer carga) {
 		BigDecimal valorTotal = new BigDecimal(0);
 

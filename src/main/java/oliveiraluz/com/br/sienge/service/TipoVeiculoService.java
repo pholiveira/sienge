@@ -12,7 +12,7 @@ import oliveiraluz.com.br.sienge.model.TipoVeiculo;
 public class TipoVeiculoService {
 
 	/**
-	 * Simula uma consulta ao banco
+	 * Simula o retorno de uma consulta ao banco.
 	 * 
 	 * @return
 	 */

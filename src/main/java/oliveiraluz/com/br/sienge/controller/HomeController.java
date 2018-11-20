@@ -33,6 +33,13 @@ public class HomeController {
 		return buildView(formulario, null);
 	}
 
+	/**
+	 * Configura a estrutura Model and View de acordo com os parâmetros informados.
+	 * 
+	 * @param formulario
+	 * @param msgError
+	 * @return
+	 */
 	private ModelAndView buildView(Formulario formulario, String msgError) {
 		ModelAndView view = new ModelAndView("home");
 		if (msgError != null)

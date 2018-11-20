@@ -6,8 +6,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Formulario {
-	private final Locale brLocale = new Locale("pt", "BR");
-	private final NumberFormat brFormat = NumberFormat.getCurrencyInstance(brLocale);
+	private final NumberFormat brFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 	
 	private Integer rodoviaPavimentada;
 	private Integer rodoviaNaoPavimentada;
@@ -66,6 +65,11 @@ public class Formulario {
 		}
 	}
 
+	/**
+	 * Formatação para exibição na tela.
+	 * 
+	 * @return
+	 */
 	public String getTotalAdicional() {
 		return this.brFormat.format(totalAdicional.setScale(2, RoundingMode.HALF_UP));
 	}
@@ -78,6 +82,11 @@ public class Formulario {
 		}
 	}
 
+	/**
+	 * Formatação para exibição na tela.
+	 * 
+	 * @return
+	 */
 	public String getTotal() {
 		return this.brFormat.format(totalDistancia.add(totalAdicional).setScale(2, RoundingMode.HALF_UP));
 	}
