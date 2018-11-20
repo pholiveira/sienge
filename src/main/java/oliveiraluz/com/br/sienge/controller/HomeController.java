@@ -2,6 +2,7 @@ package oliveiraluz.com.br.sienge.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,17 +22,21 @@ public class HomeController {
 
 	@GetMapping
 	public ModelAndView init() {
-		return buildView(new Formulario());
+		return buildView(new Formulario(), null);
 	}
 
 	@PostMapping
-	public ModelAndView calcular(Formulario formulario) {
+	public ModelAndView calcular(Formulario formulario, BindingResult bindingResult) {
+		if (bindingResult.hasErrors())
+			return buildView(formulario, "Número no formato inválido! Favor inserir apenas números inteiros.");
 		this.homeService.calcularFormulario(formulario);
-		return buildView(formulario);
+		return buildView(formulario, null);
 	}
-	
-	private ModelAndView buildView(Formulario formulario) {
+
+	private ModelAndView buildView(Formulario formulario, String msgError) {
 		ModelAndView view = new ModelAndView("home");
+		if (msgError != null)
+			view.addObject("msgError", msgError);
 		view.addObject("formulario", formulario);
 		view.addObject("tiposVeiculo", this.tipoVeiculoService.findAll());
 		return view;

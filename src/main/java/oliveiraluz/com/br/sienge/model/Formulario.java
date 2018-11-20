@@ -2,9 +2,13 @@ package oliveiraluz.com.br.sienge.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Formulario {
-
+	private final Locale brLocale = new Locale("pt", "BR");
+	private final NumberFormat brFormat = NumberFormat.getCurrencyInstance(brLocale);
+	
 	private Integer rodoviaPavimentada;
 	private Integer rodoviaNaoPavimentada;
 	private Integer carga;
@@ -50,8 +54,8 @@ public class Formulario {
 		this.tipoVeiculo = tipoVeiculo;
 	}
 
-	public BigDecimal getTotalDistancia() {
-		return totalDistancia.setScale(2, RoundingMode.HALF_UP);
+	public String getTotalDistancia() {
+		return this.brFormat.format(totalDistancia.setScale(2, RoundingMode.HALF_UP));
 	}
 
 	public void setTotalDistancia(BigDecimal totalDistancia) {
@@ -62,8 +66,8 @@ public class Formulario {
 		}
 	}
 
-	public BigDecimal getTotalAdicional() {
-		return totalAdicional.setScale(2, RoundingMode.HALF_UP);
+	public String getTotalAdicional() {
+		return this.brFormat.format(totalAdicional.setScale(2, RoundingMode.HALF_UP));
 	}
 
 	public void setTotalAdicional(BigDecimal totalComplementar) {
@@ -74,7 +78,7 @@ public class Formulario {
 		}
 	}
 
-	public BigDecimal getTotal() {
-		return totalDistancia.add(totalAdicional).setScale(2, RoundingMode.HALF_UP);
+	public String getTotal() {
+		return this.brFormat.format(totalDistancia.add(totalAdicional).setScale(2, RoundingMode.HALF_UP));
 	}
 }

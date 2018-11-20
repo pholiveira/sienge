@@ -10,46 +10,58 @@ import oliveiraluz.com.br.sienge.model.TipoVeiculo;
 
 @Service
 public class HomeService {
-	
+
 	@Value("${parametro.pavimentado}")
 	private BigDecimal pavimentado;
 
 	@Value("${parametro.naoPavimentado}")
 	private BigDecimal naoPavimentado;
-	
+
 	@Value("${parametro.pesoCarga}")
 	private Integer pesoCarga;
+
+	@Value("${parametro.toneladaExcedente}")
+	private BigDecimal toneladaExcedente;
 	
 	public void calcularFormulario(Formulario formulario) {
 		BigDecimal valorDistancia = calculaDistancia(formulario.getRodoviaPavimentada(), formulario.getRodoviaNaoPavimentada());
-		BigDecimal valorAdicional = calculaAdicional(formulario.getTipoVeiculo(), valorDistancia, formulario.getCarga());
+		
+		Integer kmRodado = 0;
+		
+		if (formulario.getRodoviaPavimentada() != null)
+			kmRodado += formulario.getRodoviaPavimentada();
+		if (formulario.getRodoviaNaoPavimentada() != null)
+			kmRodado += formulario.getRodoviaNaoPavimentada();
+		
+		BigDecimal valorAdicional = calculaAdicional(formulario.getTipoVeiculo(), valorDistancia, kmRodado, formulario.getCarga());
 
 		formulario.setTotalDistancia(valorDistancia);
 		formulario.setTotalAdicional(valorAdicional);
 	}
-	
+
 	private BigDecimal calculaDistancia(Integer rodoviaPavimentada, Integer rodoviaNaoPavimentada) {
-		BigDecimal totalRodovia = new BigDecimal(0);
-		
+		BigDecimal valorTotal = new BigDecimal(0);
+
 		if (rodoviaPavimentada != null) {
-			totalRodovia = this.pavimentado.multiply(new BigDecimal(rodoviaPavimentada));
+			valorTotal = this.pavimentado.multiply(new BigDecimal(rodoviaPavimentada));
 		}
 		if (rodoviaNaoPavimentada != null) {
-			totalRodovia = totalRodovia.add(this.naoPavimentado.multiply(new BigDecimal(rodoviaNaoPavimentada)));
+			valorTotal = valorTotal.add(this.naoPavimentado.multiply(new BigDecimal(rodoviaNaoPavimentada)));
 		}
-		
-		return totalRodovia;
+
+		return valorTotal;
 	}
-	
-	private BigDecimal calculaAdicional(TipoVeiculo tipoVeiculo, BigDecimal totalRodovia, Integer carga) {
-		BigDecimal totalAdicional = new BigDecimal(0);
-		
+
+	private BigDecimal calculaAdicional(TipoVeiculo tipoVeiculo, BigDecimal valorTotalRodovia, Integer kmRodado, Integer carga) {
+		BigDecimal valorTotal = new BigDecimal(0);
+
 		if (tipoVeiculo != null) {
-			totalAdicional = tipoVeiculo.getFatorMultiplicador().multiply(totalRodovia).subtract(totalRodovia);
+			valorTotal = tipoVeiculo.getFatorMultiplicador().multiply(valorTotalRodovia).subtract(valorTotalRodovia);
 		}
-		if (carga > this.pesoCarga) {
-			
+		if (carga != null && carga > this.pesoCarga) {
+			Integer cargaExcedente = carga - this.pesoCarga;
+			valorTotal = valorTotal.add(toneladaExcedente.multiply(new BigDecimal(cargaExcedente)).multiply(new BigDecimal(kmRodado)));
 		}
-		return totalAdicional;
+		return valorTotal;
 	}
 }
