@@ -19,4 +19,15 @@ public class TipoVeiculoService {
 	public List<TipoVeiculo> findAll() {
 		return Arrays.asList(new TipoVeiculo("Caminhão baú", new BigDecimal(1.00)), new TipoVeiculo("Caminhão caçamba", new BigDecimal(1.05)), new TipoVeiculo("Carreta", new BigDecimal(1.12)));
 	}
+	
+	/**
+	 * Carrega um tipo de veículo de acordo com o nome informado.
+	 * 
+	 * @param nome
+	 * @return
+	 */
+	public TipoVeiculo loadBy(String nome) {
+		TipoVeiculo tipoVeiculo = findAll().stream().filter(tipo -> tipo.getVeiculo().equals(nome)).findFirst().orElse(null);
+		return tipoVeiculo;
+	}
 }
