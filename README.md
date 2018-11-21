@@ -2,10 +2,10 @@
 Sistema Integrado para Gestão de Empresas da Indústria da Construção
 
 ## Tecnologias Utilizadas
-Java 8
-Spring Boot 2
-Thymeleaf 2
-Bootstrap 4
+* Java 8
+* Spring Boot 2
+* Thymeleaf 2
+* Bootstrap 4
 
 ## Rodando Sienge
 1. Clonar o projeto `$ git clone https://github.com/pholiveira/sienge.git`

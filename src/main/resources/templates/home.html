@@ -53,7 +53,7 @@
 							<div class="row">
 								<div class="col-md-6 mb-3">
 									<label for="veiculo">Veículo utilizado</label> 
-									<select class="form-control" id="veiculo" th:field="*{tipoVeiculo}" >
+									<select class="form-control" id="veiculo" th:field="*{veiculo}" >
 										<option th:value="NULL" th:text="Selecione..."></option>
 										<option th:each="tipo : ${tiposVeiculo}" th:value="${tipo.veiculo}" th:text="${tipo.veiculo}"></option>
 									</select>

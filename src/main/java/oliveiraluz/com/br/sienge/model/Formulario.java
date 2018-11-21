@@ -11,7 +11,7 @@ public class Formulario {
 	private Integer rodoviaPavimentada;
 	private Integer rodoviaNaoPavimentada;
 	private Integer carga;
-	private TipoVeiculo tipoVeiculo;
+	private String veiculo;
 
 	private BigDecimal totalDistancia;
 	private BigDecimal totalAdicional;
@@ -45,12 +45,12 @@ public class Formulario {
 		this.carga = carga;
 	}
 
-	public TipoVeiculo getTipoVeiculo() {
-		return tipoVeiculo;
+	public String getVeiculo() {
+		return veiculo;
 	}
 
-	public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
-		this.tipoVeiculo = tipoVeiculo;
+	public void setVeiculo(String veiculo) {
+		this.veiculo = veiculo;
 	}
 
 	public String getTotalDistancia() {

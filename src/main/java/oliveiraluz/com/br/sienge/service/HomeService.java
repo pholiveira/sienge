@@ -2,6 +2,7 @@ package oliveiraluz.com.br.sienge.service;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class HomeService {
 
 	@Value("${parametro.toneladaExcedente}")
 	private BigDecimal toneladaExcedente;
+
+	@Autowired
+	private TipoVeiculoService tipoVeiculoService;
 	
 	/**
 	 * Executa toda regra de negócio referente ao cálculo do transporte.
@@ -38,7 +42,7 @@ public class HomeService {
 		if (formulario.getRodoviaNaoPavimentada() != null)
 			kmRodado += formulario.getRodoviaNaoPavimentada();
 		
-		BigDecimal valorAdicional = calculaAdicional(formulario.getTipoVeiculo(), valorDistancia, kmRodado, formulario.getCarga());
+		BigDecimal valorAdicional = calculaAdicional(formulario.getVeiculo(), valorDistancia, kmRodado, formulario.getCarga());
 
 		formulario.setTotalDistancia(valorDistancia);
 		formulario.setTotalAdicional(valorAdicional);
@@ -51,7 +55,7 @@ public class HomeService {
 	 * @param rodoviaNaoPavimentada
 	 * @return
 	 */
-	private BigDecimal calculaDistancia(Integer rodoviaPavimentada, Integer rodoviaNaoPavimentada) {
+	public BigDecimal calculaDistancia(Integer rodoviaPavimentada, Integer rodoviaNaoPavimentada) {
 		BigDecimal valorTotal = new BigDecimal(0);
 
 		if (rodoviaPavimentada != null) {
@@ -73,8 +77,9 @@ public class HomeService {
 	 * @param carga
 	 * @return
 	 */
-	private BigDecimal calculaAdicional(TipoVeiculo tipoVeiculo, BigDecimal valorTotalRodovia, Integer kmRodado, Integer carga) {
+	public BigDecimal calculaAdicional(String veiculo, BigDecimal valorTotalRodovia, Integer kmRodado, Integer carga) {
 		BigDecimal valorTotal = new BigDecimal(0);
+		TipoVeiculo tipoVeiculo = tipoVeiculoService.loadBy(veiculo);
 
 		if (tipoVeiculo != null) {
 			valorTotal = tipoVeiculo.getFatorMultiplicador().multiply(valorTotalRodovia).subtract(valorTotalRodovia);
