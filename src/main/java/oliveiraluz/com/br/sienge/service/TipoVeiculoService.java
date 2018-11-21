@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import oliveiraluz.com.br.sienge.model.TipoVeiculo;
@@ -12,12 +13,14 @@ import oliveiraluz.com.br.sienge.model.TipoVeiculo;
 public class TipoVeiculoService {
 
 	/**
-	 * Simula o retorno de uma consulta ao banco.
+	 * Simula o retorno de uma consulta ao banco com cache.
 	 * 
 	 * @return
 	 */
+	@Cacheable("tipoVeiculos")
 	public List<TipoVeiculo> findAll() {
-		return Arrays.asList(new TipoVeiculo("Caminhão baú", new BigDecimal(1.00)), new TipoVeiculo("Caminhão caçamba", new BigDecimal(1.05)), new TipoVeiculo("Carreta", new BigDecimal(1.12)));
+		List<TipoVeiculo> tipoVeiculos = Arrays.asList(new TipoVeiculo("Caminhão baú", new BigDecimal(1.00)), new TipoVeiculo("Caminhão caçamba", new BigDecimal(1.05)), new TipoVeiculo("Carreta", new BigDecimal(1.12)));
+		return tipoVeiculos;
 	}
 	
 	/**
